@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
@@ -78,7 +79,7 @@ public class LevelManager : MonoBehaviour
     {
         // Remove null items (items that have been destroyed/picked up)
         requiredItems.RemoveAll(item => item == null);
-        
+
         int currentItemCount = requiredItems.Count;
 
         // Check if item count changed
@@ -99,7 +100,7 @@ public class LevelManager : MonoBehaviour
     {
         levelComplete = true;
         Debug.Log($"Level Complete! Time remaining: {currentTime:F2} seconds");
-        
+
         // TODO: Trigger win condition, load next level, show UI, etc.
     }
 
@@ -107,7 +108,7 @@ public class LevelManager : MonoBehaviour
     {
         levelFailed = true;
         Debug.Log("Level Failed! Time ran out!");
-        
+
         // TODO: Trigger lose condition, restart level, show UI, etc.
     }
 
@@ -137,5 +138,10 @@ public class LevelManager : MonoBehaviour
         int minutes = Mathf.FloorToInt(currentTime / 60f);
         int seconds = Mathf.FloorToInt(currentTime % 60f);
         return string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
+
+    public void ChangeLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
